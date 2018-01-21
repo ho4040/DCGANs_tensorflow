@@ -1,7 +1,6 @@
-# DCGANs_tensorflow
+# DCGANs
 
-DCGANs tensorflow implementation with MNIST
-
+DCGANs tensorflow implementaion with MNIST
 
 ![1](https://i.imgur.com/Jap5X18.png)
 ![2](https://i.imgur.com/JWvQRN4.png)
