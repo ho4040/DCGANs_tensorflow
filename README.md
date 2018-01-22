@@ -1,7 +1,5 @@
 # DCGANs
 
-![0](https://i.imgur.com/ORFN5YK.png)
-
 DCGANs tensorflow implementaion with MNIST
 
 ![1](https://i.imgur.com/Jap5X18.png)
