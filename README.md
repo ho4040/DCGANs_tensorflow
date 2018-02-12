@@ -1,6 +1,6 @@
-# DCGANs
+# Deep convolutional Generative adversarial networks 
 
-DCGANs tensorflow implementaion with MNIST
+MNIST implement with Tensorflow
 
 ![1](https://i.imgur.com/172koYy.png)
 
