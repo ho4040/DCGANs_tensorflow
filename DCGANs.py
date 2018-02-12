@@ -17,7 +17,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 # In[2]:
 
 
-batch_size = 25
+batch_size = 128
 z_size = 100
 train_epoch = 100
 w_init = tf.contrib.layers.xavier_initializer()
@@ -99,8 +99,8 @@ def discriminator( x, reuse=False):
 # In[3]:
 
 
-#z = tf.random_normal(shape=(batch_size, z_size), mean=0.0, stddev=1.0, dtype=tf.float32)
-z = tf.random_uniform(shape=(batch_size, z_size), dtype=tf.float32)
+z = tf.random_normal(shape=(batch_size, z_size), mean=0.0, stddev=1.0, dtype=tf.float32)
+#z = tf.random_uniform(shape=(batch_size, z_size), dtype=tf.float32)
 x = tf.placeholder(shape=[batch_size, 784], dtype=tf.float32) # for mnist
 reshaped = tf.reshape(x, (batch_size, 28, 28, 1)) # convert raw data to valid image data
 resized = tf.image.resize_images(reshaped, (64,64,)) # change size as D input  
@@ -113,7 +113,6 @@ y_real, logits_real = discriminator(resized, True)
 #loss_g = tf.reduce_mean(tf.log(1-y_fake))
 
 # To remove sigmoid from backpropagation process, use logit and sigmoid_cross_entropy
-
 label_one = tf.ones_like(logits_real)
 label_zero = tf.zeros_like(logits_fake)
 loss_d = tf.losses.sigmoid_cross_entropy(multi_class_labels=label_zero, logits=logits_fake) + tf.losses.sigmoid_cross_entropy(multi_class_labels=label_one, logits=logits_real)
@@ -139,11 +138,11 @@ with tf.control_dependencies(update_ops):
 
 
 fake_images = tf.reshape(x_fake, [-1, 64, 64, 1])
-tf.summary.image('fake_images', fake_images, 3)
-tf.summary.histogram('y_real', y_real)
-tf.summary.histogram('y_fake', y_fake)
-tf.summary.scalar('loss_d', loss_d)
-tf.summary.scalar('loss_g', loss_g)
+#tf.summary.image('fake_images', fake_images, 3)
+#tf.summary.histogram('y_real', y_real)
+#tf.summary.histogram('y_fake', y_fake)
+#tf.summary.scalar('loss_d', loss_d)
+#tf.summary.scalar('loss_g', loss_g)
 
 
 # In[5]:
@@ -159,8 +158,8 @@ train_label = mnist.train.labels
 
 sess = tf.InteractiveSession()
 tf.global_variables_initializer().run()
-writer = tf.summary.FileWriter('./dcgan_mnist', sess.graph)
-merged = tf.summary.merge_all()
+#writer = tf.summary.FileWriter('./dcgan_mnist', sess.graph)
+#merged = tf.summary.merge_all()
 print("ready!")
 
 
@@ -181,9 +180,9 @@ for epoch in range(train_epoch):
         _ = sess.run([d_train], {x: x_data})
         _ = sess.run([g_train], {x: x_data})
         
-    if epoch % 3 == 0:
-        _summ = sess.run(merged, {x: x_data})
-        writer.add_summary(_summ, epoch)
+    if epoch % 10 == 0:
+        #_summ = sess.run(merged, {x: x_data})
+        #writer.add_summary(_summ, epoch)
         
         _fake_images = sess.run(fake_images, {x: x_data})
         
